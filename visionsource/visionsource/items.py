@@ -16,11 +16,15 @@ def doctors_out(d:str):
 def address_out(d:list[str]):
     return "; ".join(d)
 
+def phone_number_in(d):
+    return d.strip()
+
 
 class VisionsourceItem(Item):
     business_name = Field(output_processor=Join())
     doctors = Field(input_processor=MapCompose(doctors_in),
                     output_processor=MapCompose(doctors_out))
     address = Field(output_processor=address_out)
-    phone_number = Field(output_processor=Join())
+    phone_number = Field(input_processor=MapCompose(phone_number_in),
+                         output_processor=Join())
     website = Field(output_processor=Join())
