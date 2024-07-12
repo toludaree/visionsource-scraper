@@ -8,6 +8,11 @@
 from itemadapter import ItemAdapter
 
 
-class VisionsourcePipeline:
+class VisionsourceWebsiteDefaultValuePipeline:
     def process_item(self, item, spider):
-        return item
+        adapter = ItemAdapter(item)
+        if not adapter.get("website"):
+            adapter["website"] = ""
+            return item
+        else:
+            return item
