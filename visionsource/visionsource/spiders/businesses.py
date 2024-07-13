@@ -1,5 +1,6 @@
 
 from scrapy import Spider
+from scrapy.http.response.html import HtmlResponse
 from visionsource.items import VisionsourceItem
 from itemloaders import ItemLoader
 from scrapy.spiders import CrawlSpider, Rule
@@ -14,7 +15,7 @@ class BusinessesSpider(Spider):
         "https://visionsource.com/patients/find-a-doctor/page1/?zip=90001&distance=50",
     ]
 
-    def parse(self, response):
+    def parse(self, response:HtmlResponse):
         gallery = response.xpath("//div[@class='list-item']")
         for business in gallery:
             item = ItemLoader(item=VisionsourceItem(),
@@ -30,3 +31,16 @@ class BusinessesSpider(Spider):
                            "/a[contains(text(), 'Visit Website')]/@href")
 
             yield item.load_item()
+
+        current_url = response.url
+        total_pages = _get_total_pages(
+            response.xpath("//footer[@class='pagination']/p/text()").get()
+        )
+        for page in range(2, total_pages+1):
+            next_url = f"/page{page}/".join(current_url.split("/page1/"))
+            yield response.follow(next_url, callback=self.parse)
+
+
+def _get_total_pages(text:str) -> int:
+    """Given "Page 1 of x", return x"""
+    return int(text.split()[-1])
