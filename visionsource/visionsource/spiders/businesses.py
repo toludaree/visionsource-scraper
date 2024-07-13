@@ -3,8 +3,6 @@ from scrapy import Spider
 from scrapy.http.response.html import HtmlResponse
 from visionsource.items import VisionsourceItem
 from itemloaders import ItemLoader
-from scrapy.spiders import CrawlSpider, Rule
-from scrapy.linkextractors import LinkExtractor
 
 
 class BusinessesSpider(Spider):
