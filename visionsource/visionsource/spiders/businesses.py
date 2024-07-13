@@ -25,6 +25,8 @@ class BusinessesSpider(Spider):
             item.add_xpath("doctors", "./p[@class='doctors']/text()")
             item.add_xpath("address", "./div[@class='address']/p/text()")
             item.add_xpath("phone_number", "./div[@class='contact']/p/text()")
-            item.add_xpath("website", "./div[@class='action']/a[contains(text(), 'Visit Website')]/@href")
+            item.add_xpath("website",
+                           "./div[@class='action']" \
+                           "/a[contains(text(), 'Visit Website')]/@href")
 
             yield item.load_item()
