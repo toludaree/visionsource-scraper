@@ -2,4 +2,4 @@
 __pycache__/
 *.json
 log.txt
-keep.csv
+*.xlsx
