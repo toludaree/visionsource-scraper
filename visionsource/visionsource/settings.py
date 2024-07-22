@@ -63,7 +63,10 @@ CONCURRENT_REQUESTS_PER_DOMAIN = 5
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   "visionsource.pipelines.VisionsourceWebsiteDefaultValuePipeline": 300,
+   "visionsource.pipelines.VisionsourceDoctorsDefaultValuePipeline": 1,
+   "visionsource.pipelines.VisionsourcePhoneNumberDefaultValuePipeline": 2,
+   "visionsource.pipelines.VisionsourceWebsiteDefaultValuePipeline": 3,
+   "visionsource.pipelines.VisionsourceAddToXlsxPipeline": 4,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
